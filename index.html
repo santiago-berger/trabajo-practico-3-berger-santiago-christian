@@ -20,7 +20,34 @@
       </div>
     </header>
 
-    <main class="container"></main>
+    <main class="container my-4">
+      <!-- buscador -->
+      <section class="buscador-seccion mb-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <div class="input-group">
+              <input
+                type="text"
+                id="inputBuscador"
+                class="form-control"
+                placeholder="Buscar personaje por nombre..."
+                aria-label="Buscar personaje"
+              />
+              <button
+                id="btnBuscar"
+                type="button"
+                class="btn btn-warning fw-semibold"
+              >
+                Buscar
+              </button>
+              <button id="btnLimpiar" type="button" class="btn btn-secondary">
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <footer class="app-footer text-center py-3 mt-4">
       <p class="subtitulo mb-0">&copy; Santiago Christian Berger</p>
