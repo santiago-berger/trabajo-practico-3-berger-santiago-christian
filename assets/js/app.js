@@ -39,3 +39,53 @@ const obtenerPersonajes = async () => {
     return [];
   }
 };
+
+// Funciones para mostrar la información
+
+// dibuja las tarjetas de los personajes dentro del contenedor
+const renderizarTarjetas = (listaPersonajes) => {
+  limpiarResultados();
+
+  if (listaPersonajes.length === 0) {
+    mostrarMensaje("No se encontraron personajes.", "vacio");
+    return;
+  }
+
+  listaPersonajes.forEach((personaje) => {
+    const urlImagen = `${URL_CDN}${personaje.portrait_path}`;
+
+    contenedor.innerHTML += `
+      <div class="col">
+        <div class="tarjeta-personaje">
+          <img src="${urlImagen}" alt="${personaje.name}" class="tarjeta-imagen" />
+          <div class="tarjeta-cuerpo">
+            <h5 class="tarjeta-nombre">${personaje.name}</h5>
+            <button class="btn btn-ver-detalle mt-auto" data-id="${personaje.id}">Ver detalle</button>
+          </div>
+        </div>
+      </div>`;
+  });
+};
+
+// borra todas las tarjetas del contenedor
+const limpiarResultados = () => {
+  contenedor.innerHTML = "";
+};
+
+// muestra un mensaje al usuario, como un error o informacion
+const mostrarMensaje = (texto, tipo) => {
+  mensajeEstado.innerHTML = `<div class="mensaje-${tipo}">${texto}</div>`;
+};
+
+// función que se ejecuta apenas se carga la página
+const iniciarPagina = async () => {
+  mostrarMensaje("Cargando personajes...", "info");
+  personajes = await obtenerPersonajes();
+  if (personajes.length > 0) {
+    mensajeEstado.innerHTML = "";
+    renderizarTarjetas(personajes);
+  }
+};
+
+// arranca la página
+iniciarPagina();
