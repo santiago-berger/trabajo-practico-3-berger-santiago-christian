@@ -83,6 +83,31 @@ const renderizarTarjetas = (listaPersonajes) => {
 
 // Funciones del buscador
 
+// filtra los personajes según lo que escribió el usuario en el input
+const filtrarPersonajes = () => {
+  // Toma el texto del input, le saca espacios y lo pasa a minúsculas
+  const textoBusqueda = inputBuscador.value.trim().toLowerCase();
+
+  // valida que el campo no este vacío
+  if (textoBusqueda === "") {
+    mostrarMensaje("Ingresá un nombre para buscar.", "info");
+    renderizarTarjetas(personajes);
+    return;
+  }
+
+  // recorre el arreglo con forEach y guarda los personajes que coinciden
+  const resultados = [];
+  personajes.forEach((personaje) => {
+    if (personaje.name.toLowerCase().includes(textoBusqueda)) {
+      resultados.push(personaje);
+    }
+  });
+
+  // borra cualquier mensaje anterior y muestra los resultados
+  mensajeEstado.innerHTML = "";
+  renderizarTarjetas(resultados);
+};
+
 // borra todas las tarjetas del contenedor
 const limpiarResultados = () => {
   contenedor.innerHTML = "";
@@ -92,6 +117,23 @@ const limpiarResultados = () => {
 const mostrarMensaje = (texto, tipo) => {
   mensajeEstado.innerHTML = `<div class="mensaje-${tipo}">${texto}</div>`;
 };
+
+// Eventos
+
+// click en el botón "Buscar"
+botonBuscar.addEventListener("click", filtrarPersonajes);
+
+// cuando presionan Enter dentro del input también dispara la búsqueda
+inputBuscador.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") filtrarPersonajes();
+});
+
+// click en el botón "Limpiar" vacía el input y vuelve a mostrar todos los personajes
+botonLimpiar.addEventListener("click", () => {
+  inputBuscador.value = "";
+  mensajeEstado.innerHTML = "";
+  renderizarTarjetas(personajes);
+});
 
 // Inicio de la página
 
