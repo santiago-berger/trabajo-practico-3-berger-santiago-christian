@@ -16,6 +16,9 @@ const inputBuscador = document.querySelector("#inputBuscador");
 const botonBuscar = document.querySelector("#btnBuscar");
 const botonLimpiar = document.querySelector("#btnLimpiar");
 const mensajeEstado = document.querySelector("#mensajeEstado");
+const modalTitulo = document.querySelector("#modalTitulo");
+const modalCuerpo = document.querySelector("#modalCuerpo");
+const modalPersonaje = new bootstrap.Modal("#modal");
 
 // Funciones para consultar la API
 
@@ -37,6 +40,21 @@ const obtenerPersonajes = async () => {
     console.log(error);
     mostrarMensaje("Error al cargar los personajes.", "error");
     return [];
+  }
+};
+
+// trae los datos de un personaje especifico segun su id
+const obtenerUnPersonaje = async (idPersonaje) => {
+  try {
+    const respuesta = await fetch(`${URL_API}/${idPersonaje}`);
+
+    if (!respuesta.ok) throw new Error("Error en la respuesta de la API");
+
+    const personaje = await respuesta.json();
+    return personaje;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };
 
