@@ -1,0 +1,43 @@
+body {
+  background-image: url("https://wallpaper.dog/large/20339002.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c2c2c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.header {
+  background-color: #ffd521;
+  border-bottom: 4px solid #009ddc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: #009ddc;
+  text-shadow: 2px 2px 0 #2c2c2c;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.subtitulo {
+  color: #2c2c2c;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.app-footer {
+  background-color: #ffd521;
+  color: #2c2c2c;
+  border-top: 4px solid #009ddc;
+}
