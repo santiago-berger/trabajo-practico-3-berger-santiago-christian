@@ -134,13 +134,17 @@ const mostrarModal = (personaje) => {
   // carga el título y el cuerpo del modal con la información del personaje
   modalTitulo.textContent = personaje.name;
   modalCuerpo.innerHTML = `
-    <img src="${urlImagen}" alt="${personaje.name}" class="modal-imagen" />
-    <p class="modal-dato"><strong>Edad:</strong> ${edad}</p>
-    <p class="modal-dato"><strong>Fecha de nacimiento:</strong> ${nacimiento}</p>
-    <p class="modal-dato"><strong>Género:</strong> ${genero}</p>
-    <p class="modal-dato"><strong>Ocupación:</strong> ${ocupacion}</p>
-    <p class="modal-dato"><strong>Estado:</strong> ${textoEstado}</p>
-    <div class="modal-frase">"${fraseAleatoria}"</div>`;
+    <div class="modal-flex">
+      <img src="${urlImagen}" alt="${personaje.name}" class="modal-imagen" />
+      <div class="modal-info">
+        <p class="modal-dato"><strong>Edad:</strong> ${edad}</p>
+        <p class="modal-dato"><strong>Fecha de nacimiento:</strong> ${nacimiento}</p>
+        <p class="modal-dato"><strong>Género:</strong> ${genero}</p>
+        <p class="modal-dato"><strong>Ocupación:</strong> ${ocupacion}</p>
+        <p class="modal-dato"><strong>Estado:</strong> ${textoEstado}</p>
+        <div class="modal-frase">"${fraseAleatoria}"</div>
+      </div>
+    </div>`;
 
   // abre el modal
   modalPersonaje.show();
