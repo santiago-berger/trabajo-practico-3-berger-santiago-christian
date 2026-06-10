@@ -44,28 +44,44 @@ const obtenerPersonajes = async () => {
 
 // dibuja las tarjetas de los personajes dentro del contenedor
 const renderizarTarjetas = (listaPersonajes) => {
+  // se borran las tarjetas anteriores
   limpiarResultados();
-
+  
+  // si la lista esta vacía muestra un mensaje y sale de la funcion
   if (listaPersonajes.length === 0) {
     mostrarMensaje("No se encontraron personajes.", "vacio");
     return;
   }
 
+  // recorre cada personaje y arma su tarjeta
   listaPersonajes.forEach((personaje) => {
+    // operadores ternarios:
+    // si el personaje está vivo usa la clase verde, si no la roja
+    const claseEstado = personaje.status === "Alive" ? "estado-alive" : "estado-deceased";
+    // si esta vivo muestra "Vivo", si no "Fallecido"
+    const textoEstado = personaje.status === "Alive" ? "Vivo" : "Fallecido";
+    // si tiene ocupacion la usa, si no muestra "Sin información"
+    const ocupacion = personaje.occupation ? personaje.occupation : "Sin información";
+    // arma la URL completa de la imagen sumando el CDN y la ruta relativa
     const urlImagen = `${URL_CDN}${personaje.portrait_path}`;
 
+    // crea el HTML de la tarjeta y se agrega al contenedor
     contenedor.innerHTML += `
       <div class="col">
         <div class="tarjeta-personaje">
           <img src="${urlImagen}" alt="${personaje.name}" class="tarjeta-imagen" />
           <div class="tarjeta-cuerpo">
             <h5 class="tarjeta-nombre">${personaje.name}</h5>
+            <p class="tarjeta-ocupacion">${ocupacion}</p>
+            <span class="tarjeta-estado ${claseEstado}">${textoEstado}</span>
             <button class="btn btn-ver-detalle mt-auto" data-id="${personaje.id}">Ver detalle</button>
           </div>
         </div>
       </div>`;
   });
 };
+
+// Funciones del buscador
 
 // borra todas las tarjetas del contenedor
 const limpiarResultados = () => {
@@ -77,10 +93,16 @@ const mostrarMensaje = (texto, tipo) => {
   mensajeEstado.innerHTML = `<div class="mensaje-${tipo}">${texto}</div>`;
 };
 
+// Inicio de la página
+
 // función que se ejecuta apenas se carga la página
 const iniciarPagina = async () => {
   mostrarMensaje("Cargando personajes...", "info");
+
+  // trae los personajes y los guarda en la variable global
   personajes = await obtenerPersonajes();
+
+  // si vinieron personajes correctamente limpia el mensaje y los muestra
   if (personajes.length > 0) {
     mensajeEstado.innerHTML = "";
     renderizarTarjetas(personajes);
